@@ -8,6 +8,33 @@ const state = {
   lang: "zh",
 };
 
+const CATEGORY_INTROS = {
+  social: {
+    zh: "追踪内容更新、做信息摘要，也覆盖账号分析与自动化运营。",
+    en: "Track content updates, create digests, and automate account operations.",
+  },
+  creative: {
+    zh: "把创意制作、网站生成、视频编辑和设计构建收进同一类场景。",
+    en: "A single group for creative production, website building, video editing, and design workflows.",
+  },
+  devops: {
+    zh: "聚焦基础设施、工作流编排和让系统自动运转的运维场景。",
+    en: "Focused on infrastructure, orchestration, and DevOps-style system workflows.",
+  },
+  productivity: {
+    zh: "覆盖日常事务自动化、执行代理和团队协作这类高频任务。",
+    en: "Covers everyday automation, execution agents, and high-frequency team productivity tasks.",
+  },
+  research: {
+    zh: "适合做检索、学习、分析和把复杂资料整理成可用结论。",
+    en: "Built for search, learning, analysis, and turning messy material into usable conclusions.",
+  },
+  finance: {
+    zh: "用于市场监控、自动交易和对时效性要求更高的金融工作流。",
+    en: "Used for market monitoring, automated trading, and time-sensitive finance workflows.",
+  },
+};
+
 const heroMetrics = document.querySelector("#hero-metrics");
 const overviewGrid = document.querySelector("#overview-grid");
 const categoryNav = document.querySelector("#category-nav");
@@ -130,7 +157,7 @@ function renderCategoryNav() {
   }).join("");
 }
 
-function renderCard(caseItem, category) {
+function renderCard(caseItem) {
   const expanded = state.expandedId === caseItem.id;
   const secondaryLang = getSecondaryLanguage(state.lang);
 
@@ -144,7 +171,6 @@ function renderCard(caseItem, category) {
       >
         <div class="case-card__meta">
           <span class="case-card__index">${String(caseItem.order).padStart(2, "0")}</span>
-          <span class="case-card__badge">${escapeHtml(pick(category.name, state.lang))}</span>
         </div>
         <h3>${escapeHtml(pick(caseItem.name, state.lang))}</h3>
         <p class="case-card__alt">${escapeHtml(pick(caseItem.name, secondaryLang))}</p>
@@ -190,26 +216,27 @@ function renderCard(caseItem, category) {
 }
 
 function renderCaseSections() {
-  caseSections.innerHTML = CATEGORIES.map((category) => {
+  caseSections.innerHTML = CATEGORIES.map((category, index) => {
     const items = CASES.filter((caseItem) => caseItem.category === category.key);
+    const intro = CATEGORY_INTROS[category.key] ?? {
+      zh: `当前分组包含 ${category.count} 个真实案例。`,
+      en: `This section contains ${category.count} real use cases.`,
+    };
 
     return `
       <section class="case-section" id="${category.anchor}">
         <div class="case-section__header">
-          <div>
-            <p class="section-kicker">${String(category.count).padStart(2, "0")}</p>
+          <div class="case-section__heading">
+            <p class="section-kicker">${String(index + 1).padStart(2, "0")}</p>
             <h2>${escapeHtml(pick(category.name, state.lang))}</h2>
+            <p class="case-section__copy">${escapeHtml(pick(intro, state.lang))}</p>
           </div>
-          <p class="case-section__copy">
-            ${
-              state.lang === "zh"
-                ? `当前分组包含 ${category.count} 个真实案例。`
-                : `This section contains ${category.count} real use cases.`
-            }
+          <p class="case-section__count">
+            ${state.lang === "zh" ? `${category.count} 个案例` : `${category.count} Cases`}
           </p>
         </div>
         <div class="case-grid">
-          ${items.map((caseItem) => renderCard(caseItem, category)).join("")}
+          ${items.map((caseItem) => renderCard(caseItem)).join("")}
         </div>
       </section>
     `;

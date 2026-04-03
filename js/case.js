@@ -66,9 +66,41 @@ function sourceStatusCopy() {
   return state.lang === "zh" ? "本地缓存副本" : "Local cached copy";
 }
 
+function renderDetailSignals() {
+  const items = [
+    {
+      label: { zh: "类别", en: "Category" },
+      value: pick(category.name, state.lang),
+    },
+    {
+      label: { zh: "同步日期", en: "Synced" },
+      value: SITE_META.syncedAt,
+    },
+    {
+      label: { zh: "原文状态", en: "Source" },
+      value: sourceStatusCopy(),
+    },
+  ];
+
+  return `
+    <div class="detail-hero__signals">
+      ${items
+        .map(
+          (item) => `
+            <article class="detail-signal">
+              <span>${escapeHtml(item.label[state.lang])}</span>
+              <strong>${escapeHtml(item.value)}</strong>
+            </article>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
+}
+
 function renderOverviewPanel() {
   return `
-    <div class="detail-cards">
+    <div class="detail-cards detail-cards--overview">
       <article class="detail-card">
         <p class="detail-card__eyebrow">${state.lang === "zh" ? "功能说明" : "What It Does"}</p>
         <h2>${escapeHtml(pick(caseItem.name, state.lang))}</h2>
@@ -159,13 +191,14 @@ function render() {
           ${state.lang === "zh" ? "浏览同类案例" : "Explore Category"}
         </a>
       </div>
+      ${renderDetailSignals()}
     </section>
 
     <section class="detail-layout">
       <aside class="detail-sidebar">
         <article class="detail-card">
           <p class="detail-card__eyebrow">${state.lang === "zh" ? "案例信息" : "Case Info"}</p>
-          <h2>${escapeHtml(pick(caseItem.name, state.lang))}</h2>
+          <h2>${state.lang === "zh" ? "案例快照" : "Snapshot"}</h2>
           <ul class="detail-meta-list">
             <li>
               <span>${state.lang === "zh" ? "类别" : "Category"}</span>
