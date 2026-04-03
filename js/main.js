@@ -26,19 +26,19 @@ function renderHeroMetrics() {
   const items = [
     {
       value: String(SITE_META.totalCases),
-      label: { zh: "真实案例", en: "Real Use Cases" },
+      label: { zh: "真实案例", en: "Cases" },
     },
     {
       value: String(SITE_META.totalCategories),
-      label: { zh: "分类维度", en: "Category Groups" },
+      label: { zh: "类别", en: "Categories" },
     },
     {
-      value: state.lang === "zh" ? "静态站点" : "Static Site",
-      label: { zh: "交付形态", en: "Delivery Mode" },
+      value: state.lang === "zh" ? "静态站点" : "Static",
+      label: { zh: "形态", en: "Format" },
     },
     {
       value: SITE_META.syncedAt,
-      label: { zh: "最近同步", en: "Synced At" },
+      label: { zh: "同步日期", en: "Synced" },
     },
   ];
 
@@ -59,45 +59,45 @@ function renderOverviewGrid() {
     {
       eyebrow: { zh: "中英双语", en: "Bilingual" },
       title: {
-        zh: "中文为主，英文为辅。",
+        zh: "中文主视图，英文并行。",
         en: "Chinese first, English alongside.",
       },
       copy: {
-        zh: "首页、详情页和静态文案都支持即时切换语言。",
-        en: "Homepage, detail pages, and static copy switch languages instantly.",
+        zh: "首页和详情页都支持无刷新切换。",
+        en: "Homepage and detail pages switch languages instantly.",
       },
     },
     {
       eyebrow: { zh: "卡片交互", en: "Card Interaction" },
       title: {
-        zh: "一屏扫览，按需展开。",
-        en: "Scan fast, expand only when needed.",
+        zh: "先扫览，再展开。",
+        en: "Scan first, expand only when needed.",
       },
       copy: {
-        zh: "每张卡片都能展开技能要求与上手方式，再跳转到独立详情页。",
-        en: "Every card can expand to reveal skills and setup guidance before jumping into a dedicated detail page.",
+        zh: "卡片内直接查看概览、技能和使用方式。",
+        en: "Each card reveals overview, skills, and setup guidance.",
       },
     },
     {
       eyebrow: { zh: "GitHub 源数据", en: "GitHub Source" },
       title: {
-        zh: "详情原文优先直连 GitHub。",
-        en: "Detail pages prefer live GitHub markdown.",
+        zh: "详情优先直连 GitHub。",
+        en: "Live GitHub markdown first.",
       },
       copy: {
-        zh: "当实时拉取失败时，页面会自动回退到本地缓存，保证静态部署仍能访问。",
-        en: "When live fetching fails, the site automatically falls back to a cached local copy.",
+        zh: "网络不可用时自动回退到本地缓存。",
+        en: "Falls back to a cached local copy when the live fetch fails.",
       },
     },
     {
       eyebrow: { zh: "响应式布局", en: "Responsive Layout" },
       title: {
-        zh: "桌面 4 列，平板 2 列，手机 1 列。",
-        en: "Four columns on desktop, two on tablet, one on mobile.",
+        zh: "桌面 4 列，移动端自适应。",
+        en: "Four columns on desktop, adaptive on smaller screens.",
       },
       copy: {
-        zh: "卡片与详情页在不同屏幕尺寸下都会自动重排，适合直接部署到 Vercel。",
-        en: "Cards and detail layouts automatically adapt to screen size and are ready for Vercel deployment.",
+        zh: "卡片与详情页会按屏幕尺寸自动重排。",
+        en: "Cards and detail layouts automatically rearrange by screen size.",
       },
     },
   ];
