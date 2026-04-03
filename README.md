@@ -1,18 +1,103 @@
-# Sheldon-龙虾应用案例 / Sheldon-OpenClaw Use Cases
+<div align="center">
 
-Sheldon-龙虾应用案例 是一个纯静态的中英文双语网站，用于汇总和展示 OpenClaw 的真实应用案例。项目以苹果官网风格为设计参考，按社交媒体、创意与构建、基础设施与 DevOps、生产力工具、研究与学习、金融与交易六大类别组织内容，支持响应式布局、案例卡片展开/收起交互，以及每个案例的独立详情页。案例数据来源于 GitHub 社区仓库，并结合中文预翻译与原始 Markdown 展示，帮助用户更高效地了解 OpenClaw 在真实场景中的使用方式与实践价值。
+# Sheldon-龙虾应用案例
+### Sheldon-OpenClaw Use Cases
 
-Sheldon-OpenClaw Use Cases is a fully static bilingual website designed to collect and showcase real-world OpenClaw use cases. Inspired by the visual style of Apple's official website, it organizes content into six major categories: Social Media, Creative & Building, Infrastructure & DevOps, Productivity, Research & Learning, and Finance & Trading. The site features a responsive layout, expandable case cards, and dedicated detail pages for each use case. Case data is sourced from a GitHub community repository, with pre-translated Chinese summaries alongside the original Markdown content, making it easier for users to understand how OpenClaw is applied in practical scenarios.
+<p>
+  <a href="https://sheldon-claw-web.vercel.app">Live Site</a> ·
+  <a href="https://github.com/SheldonZhuang/SheldonClawWeb">GitHub Repo</a> ·
+  <a href="https://github.com/hesamsheikh/awesome-openclaw-usecases">Upstream Data</a>
+</p>
 
-## Stack
+<p>
+  <img src="https://img.shields.io/badge/Static-HTML%20%2B%20CSS%20%2B%20JS-0f172a?style=flat-square" alt="Static stack">
+  <img src="https://img.shields.io/badge/Bilingual-ZH%20%2F%20EN-0071e3?style=flat-square" alt="Bilingual">
+  <img src="https://img.shields.io/badge/Cases-42-1d4ed8?style=flat-square" alt="42 cases">
+  <img src="https://img.shields.io/badge/Deploy-Vercel-111827?style=flat-square" alt="Vercel">
+</p>
 
-- HTML + CSS + JavaScript
-- Bilingual UI: Chinese primary, English secondary
-- GitHub source sync with local markdown fallback
-- Static deployment target: Vercel
+<img src="./assets/github-preview.png" alt="Sheldon-OpenClaw Use Cases preview" width="100%">
 
-## Source Data
+</div>
 
-- Upstream repository: <https://github.com/hesamsheikh/awesome-openclaw-usecases>
-- Cached markdown: `data/source/usecases/`
-- Generated site data: `data/cases.js`
+## 项目简介
+
+Sheldon-龙虾应用案例 是一个苹果官网风格的中英文双语静态网站，用来汇总和展示真实的 OpenClaw 应用案例。站点按 6 大类别组织内容，支持响应式布局、首页卡片展开/收起交互，以及每个案例的独立详情页。详情页优先读取 GitHub 原始 Markdown，网络不可用时自动回退到本地缓存，并提供中文预翻译摘要，方便快速理解与复用。
+
+## Overview
+
+Sheldon-OpenClaw Use Cases is a bilingual static website inspired by Apple's visual style, built to organize and showcase real-world OpenClaw workflows. The site is grouped into six categories, includes responsive expandable cards on the homepage, and gives every use case a dedicated detail page. Each detail page prefers live GitHub Markdown, falls back to a local cache when needed, and includes a Chinese pre-translated summary for faster reading.
+
+## Highlights
+
+- 纯静态站点：HTML + CSS + JavaScript，无框架依赖
+- 中英双语：中文为主，英文为辅，支持无刷新切换
+- 真实案例库：当前整理 42 个 OpenClaw use cases
+- 分类浏览：按社交媒体、创意与构建、基础设施与 DevOps、生产力工具、研究与学习、金融与交易 6 大类别组织
+- 交互设计：桌面 4 列、平板 2 列、手机 1 列，支持卡片展开/收起
+- 独立详情页：`case.html?id=...`
+- GitHub 内容策略：优先拉取 upstream raw markdown，失败时回退本地缓存
+- 部署友好：可直接部署到 Vercel
+
+## Preview
+
+- Live site: <https://sheldon-claw-web.vercel.app>
+- GitHub repo: <https://github.com/SheldonZhuang/SheldonClawWeb>
+- Upstream source data: <https://github.com/hesamsheikh/awesome-openclaw-usecases>
+
+## Project Structure
+
+```text
+SheldonClawWeb/
+├─ index.html
+├─ case.html
+├─ 404.html
+├─ css/
+├─ js/
+├─ data/
+│  ├─ cases.js
+│  └─ source/usecases/
+├─ scripts/
+└─ vercel.json
+```
+
+## Data Pipeline
+
+- Upstream README and `usecases/*.md` are cached under `data/source/`
+- `scripts/generate-cases.mjs` converts upstream content into frontend-ready data
+- `scripts/case-overrides.mjs` stores curated Chinese titles and summaries
+- `data/cases.js` is the final static dataset consumed by the site
+
+## Local Development
+
+```bash
+python -m http.server 4173
+```
+
+Then open:
+
+```text
+http://127.0.0.1:4173
+```
+
+## Deployment
+
+This project is designed for direct static deployment on Vercel.
+
+```bash
+vercel --prod
+```
+
+## Social Preview
+
+The repository preview asset is included at:
+
+```text
+assets/github-preview.png
+```
+
+If you want GitHub's repository social preview card to use the same image, upload this file manually in:
+
+```text
+GitHub Repo Settings -> Social preview
+```
