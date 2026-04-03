@@ -25,20 +25,20 @@ function renderDocumentTitle() {
 function renderHeroMetrics() {
   const items = [
     {
-      value: String(SITE_META.totalCases),
-      label: { zh: "真实案例", en: "Cases" },
+      value: String(SITE_META.totalCases).padStart(2, "0"),
+      label: { zh: "真实案例", en: "Real Cases" },
     },
     {
-      value: String(SITE_META.totalCategories),
-      label: { zh: "类别", en: "Categories" },
+      value: String(SITE_META.totalCategories).padStart(2, "0"),
+      label: { zh: "场景分类", en: "Categories" },
     },
     {
-      value: state.lang === "zh" ? "静态站点" : "Static",
-      label: { zh: "形态", en: "Format" },
+      value: state.lang === "zh" ? "中英双语" : "ZH / EN",
+      label: { zh: "语言模式", en: "Language Mode" },
     },
     {
       value: SITE_META.syncedAt,
-      label: { zh: "同步日期", en: "Synced" },
+      label: { zh: "最近同步", en: "Last Synced" },
     },
   ];
 
@@ -57,47 +57,41 @@ function renderHeroMetrics() {
 function renderOverviewGrid() {
   const items = [
     {
+      size: "wide",
       eyebrow: { zh: "中英双语", en: "Bilingual" },
       title: {
-        zh: "中文主视图，英文并行。",
-        en: "Chinese first, English alongside.",
+        zh: "中文为主，英文并行，适合直接做案例检索。",
+        en: "Chinese first, English alongside, ready for fast case lookup.",
       },
       copy: {
-        zh: "首页和详情页都支持无刷新切换。",
-        en: "Homepage and detail pages switch languages instantly.",
+        zh: "首页和详情页都支持无刷新切换；每个案例保留中英名称、功能说明、所需技能和使用方法。",
+        en: "Both homepage and detail pages switch instantly, while each case keeps bilingual names, overview, skills, and usage guidance.",
+      },
+      note: {
+        zh: "不需要在两个版本之间来回跳转。",
+        en: "No need to bounce between separate language versions.",
       },
     },
     {
       eyebrow: { zh: "卡片交互", en: "Card Interaction" },
       title: {
-        zh: "先扫览，再展开。",
-        en: "Scan first, expand only when needed.",
+        zh: "卡片先看，再决定是否深入。",
+        en: "Preview on the card, then decide whether to go deeper.",
       },
       copy: {
-        zh: "卡片内直接查看概览、技能和使用方式。",
-        en: "Each card reveals overview, skills, and setup guidance.",
+        zh: "展开卡片即可获得概览、技能和使用方式，不必在列表和详情页之间反复跳转。",
+        en: "Open the card to get the overview, required skills, and quick start without bouncing between list and detail pages.",
       },
     },
     {
       eyebrow: { zh: "GitHub 源数据", en: "GitHub Source" },
       title: {
-        zh: "详情优先直连 GitHub。",
-        en: "Live GitHub markdown first.",
+        zh: "详情页继续保留 GitHub 原文。",
+        en: "The detail page keeps the original GitHub markdown attached.",
       },
       copy: {
-        zh: "网络不可用时自动回退到本地缓存。",
-        en: "Falls back to a cached local copy when the live fetch fails.",
-      },
-    },
-    {
-      eyebrow: { zh: "响应式布局", en: "Responsive Layout" },
-      title: {
-        zh: "桌面 4 列，移动端自适应。",
-        en: "Four columns on desktop, adaptive on smaller screens.",
-      },
-      copy: {
-        zh: "卡片与详情页会按屏幕尺寸自动重排。",
-        en: "Cards and detail layouts automatically rearrange by screen size.",
+        zh: "详情页优先直连 GitHub markdown，网络不可用时自动回退到本地缓存，兼顾溯源与可访问性。",
+        en: "Detail pages prefer live GitHub markdown and fall back to the cached local copy, so source traceability and availability stay together.",
       },
     },
   ];
@@ -105,10 +99,15 @@ function renderOverviewGrid() {
   overviewGrid.innerHTML = items
     .map(
       (item, index) => `
-        <article class="overview-card" style="animation-delay:${index * 70}ms">
+        <article class="overview-card ${item.size ? `overview-card--${item.size}` : ""}" style="animation-delay:${index * 70}ms">
           <p class="overview-card__eyebrow">${escapeHtml(localized(item.eyebrow))}</p>
           <h3>${escapeHtml(localized(item.title))}</h3>
           <p>${escapeHtml(localized(item.copy))}</p>
+          ${
+            item.note
+              ? `<p class="overview-card__note">${escapeHtml(localized(item.note))}</p>`
+              : ""
+          }
         </article>
       `,
     )
